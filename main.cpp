@@ -28,7 +28,7 @@ int getDeposit() {
 	return deposit;
 }
 
-int getBetAmount() {
+int getBetAmount(int deposit) {
 	int betAmount = 0;
 
 	do {
@@ -38,7 +38,10 @@ int getBetAmount() {
 		if (betAmount <= 0)
 			cout << "Bet amount cannot be zero or negative. Please enter again." << endl;
 
-	} while (betAmount <= 0);
+		else if (betAmount > (deposit / 3))
+			cout << "Bet amount should be less than deposit/3. Please enter again." << endl;
+
+	} while (betAmount <= 0 || betAmount > (deposit / 3));
 
 	return betAmount;
 }
@@ -69,7 +72,6 @@ void spinSlotMachine(char slotMachine[3][3]) {
 }
 
 char checkMatchMismatch(char slotMachine[3][3], int numOfLines) {
-	bool flag = true;
 	char symbol = '\0';
 
 	for (int i = 0; i < numOfLines; i++) {
@@ -132,7 +134,7 @@ int main() {
 			exit(0);
 		}
 
-		betAmount = getBetAmount();
+		betAmount = getBetAmount(deposit);
 		numOfLines = getNumOfLines();
 		
 		cout << "Spinning the Slot Machine..." << endl;
